@@ -1,8 +1,3 @@
-# Заготовка метадаты для fdroiddata.
-# Скопируйте файл в форк https://gitlab.com/fdroid/fdroiddata как
-# metadata/com.pocket_psychologist.yml и откройте Merge Request с меткой "New App".
-# Проверка: fdroid readmeta && fdroid rewritemeta com.pocket_psychologist && fdroid lint com.pocket_psychologist
-
 License: MIT
 SourceCode: https://github.com/kochnevpsy/pocket-psychologist
 IssueTracker: https://github.com/kochnevpsy/pocket-psychologist/issues
@@ -24,8 +19,6 @@ Builds:
       - assembleRelease
 
 AutoUpdateMode: Version
-# Ограничение по регулярке отсекает служебный тег ci-latest, который создаёт
-# GitHub Actions для релиза «Последняя сборка». Релизные теги вида v1.4 оканчиваются цифрой.
 UpdateCheckMode: Tags .*[0-9]$
 CurrentVersion: '1.4'
 CurrentVersionCode: 7
@@ -37,5 +30,4 @@ MaintainerNotes: |-
   NonFreeNet и Tracking не применимы. Ассеты (шрифты OFL, аудио и портреты
   без правообладателя) описаны в ASSETS.md.
   Служебный тег ci-latest и релиз «Последняя сборка» создаются CI и не являются
-  релизом для F-Droid.
-
+  релизом для F-Droid, поэтому UpdateCheckMode ограничен регуляркой .*[0-9]$.
