@@ -49,6 +49,6 @@ tasks.named("preBuild").configure {
 
 tasks.named("clean").configure {
     doLast {
-        project.delete(generatedAssetsDir.dir)
+        project.delete(generatedAssetsDir.asFile)
     }
 }
