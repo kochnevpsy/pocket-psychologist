@@ -71,7 +71,7 @@ Workflow [.github/workflows/build.yml](.github/workflows/build.yml) запуск
 - **Offline check** — падает, если в веб-части снова появятся внешние шрифты
   или сетевые загрузки.
 - **Publish latest build to Releases** — после каждой успешной сборки из ветки
-  выкладывает APK в релиз [«Последняя сборка»](../../releases/tag/ci-latest)
+  выкладывает APK в релиз [«Последняя сборка»](https://github.com/kochnevpsy/pocket-psychologist/releases/tag/ci-latest)
   (служебный тег `ci-latest`, помечен как pre-release). Скачивать оттуда можно
   без входа в GitHub; `app-debug.apk` подписан debug-ключом и ставится сразу.
 - **Attach APK to version release** — при пуше тега `v*` прикладывает APK
