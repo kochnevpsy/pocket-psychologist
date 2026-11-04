@@ -10,15 +10,8 @@ AuthorName: Matvey Kochnev
 AuthorEmail: psychologkochnevmatvey@gmail.com
 
 AutoName: Карманный психолог
-Summary: Офлайн-дневник, трекер настроения и тест Сонди
-Description: |-
-  Набор инструментов саморегуляции и самопомощи: тест Сонди с историей
-  результатов, дыхательные практики со звуком, дневник и заметки, трекер
-  настроения, коллекция копинг-стратегий и работа с мыслями.
-
-  Приложение работает полностью офлайн: не имеет разрешения на доступ в
-  интернет, не содержит рекламы, аналитики и трекеров. Все записи хранятся
-  только на устройстве.
+Categories:
+  - Sports & Health
 RepoType: git
 Repo: https://github.com/kochnevpsy/pocket-psychologist.git
 
@@ -29,7 +22,6 @@ Builds:
     subdir: android
     gradle:
       - assembleRelease
-    output: app/build/outputs/apk/release/app-release-unsigned.apk
 
 AutoUpdateMode: Version
 # Ограничение по регулярке отсекает служебный тег ci-latest, который создаёт
