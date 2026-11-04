@@ -25,7 +25,7 @@ Repo: https://github.com/kochnevpsy/pocket-psychologist.git
 Builds:
   - versionName: '1.4'
     versionCode: 7
-    commit: 6341d9eae45da4b252fcf2512b5ec85ea9b9cc00
+    commit: a159451bffc5e4d38449ee2931428557d67a3637
     subdir: android
     gradle:
       - assembleRelease
