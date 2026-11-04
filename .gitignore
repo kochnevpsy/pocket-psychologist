@@ -16,6 +16,15 @@ out/
 .env
 .env.*
 
+# Android / Gradle
+.gradle/
+local.properties
+android/local.properties
+android/app/src/main/assets/
+captures/
+*.iml
+.cxx/
+
 # Local/IDE
 .DS_Store
 Thumbs.db

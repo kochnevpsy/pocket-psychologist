@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Версия приложения (versionCode / versionName) и applicationId задаются
+  в android/app/build.gradle.kts — это требование F-Droid для автообновлений.
+
+  Разрешение INTERNET намеренно отсутствует: приложение полностью офлайн,
+  все шрифты, аудио и изображения поставляются внутри APK.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Запись схемы в папку «Загрузки» нужна только на Android 12 и ниже.
+         На Android 13+ используется MediaStore без разрешений. -->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <application
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+
+        <activity
+            android:name="com.pocket_psychologist.MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|screenLayout|smallestScreenSize"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Провайдер отдаёт только файлы из cacheDir и только тому приложению,
+             которому пользователь явно разрешил доступ при «Поделиться». -->
+        <provider
+            android:name="com.pocket_psychologist.FileProvider"
+            android:authorities="com.pocket_psychologist.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" />
+    </application>
+</manifest>

@@ -1,0 +1,37 @@
+# Заготовка метадаты для fdroiddata.
+# Скопируйте файл в форк https://gitlab.com/fdroid/fdroiddata как
+# metadata/com.pocket_psychologist.yml и откройте Merge Request с меткой "New App".
+# Проверка: fdroid readmeta && fdroid rewritemeta com.pocket_psychologist && fdroid lint com.pocket_psychologist
+
+License: MIT
+SourceCode: https://github.com/kochnevpsy/pocket-psychologist
+IssueTracker: https://github.com/kochnevpsy/pocket-psychologist/issues
+AuthorName: Matvey Kochnev
+AuthorEmail: psychologkochnevmatvey@gmail.com
+
+AutoName: Карманный психолог
+Summary: Офлайн-дневник, трекер настроения и тест Сонди
+Description: |-
+  Набор инструментов саморегуляции и самопомощи: тест Сонди с историей
+  результатов, дыхательные практики со звуком, дневник и заметки, трекер
+  настроения, коллекция копинг-стратегий и работа с мыслями.
+
+  Приложение работает полностью офлайн: не имеет разрешения на доступ в
+  интернет, не содержит рекламы, аналитики и трекеров. Все записи хранятся
+  только на устройстве.
+RepoType: git
+Repo: https://github.com/kochnevpsy/pocket-psychologist.git
+
+Builds:
+  - versionName: '1.4'
+    versionCode: 7
+    commit: v1.4
+    subdir: android
+    gradle:
+      - assembleRelease
+    output: app/build/outputs/apk/release/app-release-unsigned.apk
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: '1.4'
+CurrentVersionCode: 7

@@ -1,0 +1,1 @@
+First F-Droid release. Fonts are now bundled with the app and the internet permission has been removed, so the app runs fully offline. The Android wrapper is built from source with Gradle, and system backup of app data is disabled.

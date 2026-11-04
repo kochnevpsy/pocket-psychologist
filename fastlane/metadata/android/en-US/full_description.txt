@@ -1,0 +1,17 @@
+Pocket Psychologist is a set of self-regulation and self-help tools that works entirely offline.
+
+Features:
+• Szondi test with profile analysis, saving and result history
+• Breathing and body practices with audio guidance
+• Diary and notes organised in sections
+• Mood and state tracker with charts
+• Coping strategies library: ready-made cards, favourites and your own entries
+• Working with thoughts: thought diary and cognitive distortion analysis
+• Export of all your records to a text file and an ODS spreadsheet
+• Printing and saving charts as PDF or PNG
+
+Privacy:
+All records stay on your device. The app has no internet permission, contains no ads, analytics or trackers, needs no account and sends nothing to any server. System backup of app data is disabled.
+
+Please note:
+This app does not replace psychotherapy and does not diagnose anything. In acute conditions, contact a professional or emergency service.

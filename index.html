@@ -31,15 +31,8 @@
   <link rel="stylesheet" href="design.css">
   <link rel="stylesheet" href="design-dark.css">
   <link rel="stylesheet" href="diary.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Font stylesheet is loaded without blocking the first paint.
-       On a slow/offline network the app still opens immediately with fallback fonts. -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  </noscript>
+  <!-- Fonts are bundled locally (SIL OFL 1.1), so the app needs no network access at all. -->
+  <link rel="stylesheet" href="fonts.css">
   <script>
     window.onerror = function(msg, url, line, col, err) {
       window.__err = msg + ' at ' + line + ':' + col;
@@ -1292,7 +1285,7 @@
               <span style="font-size: 17px;">✈️</span>
               <span>Telegram-группа <strong>@PsihologTymen</strong></span>
             </a>
-            <a href="https://www.b17.ru/?prt=kochnev" target="_blank" rel="noopener noreferrer" class="author-site-link" id="btn-author-b17" style="justify-content: flex-start;">
+            <a href="https://www.b17.ru/" target="_blank" rel="noopener noreferrer" class="author-site-link" id="btn-author-b17" style="justify-content: flex-start;">
               <span style="font-size: 17px;">🔎</span>
               <span>Если хотите найти себе русскоязычного психолога онлайн</span>
             </a>
