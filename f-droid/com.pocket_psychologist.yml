@@ -25,13 +25,25 @@ Repo: https://github.com/kochnevpsy/pocket-psychologist.git
 Builds:
   - versionName: '1.4'
     versionCode: 7
-    commit: v1.4
+    commit: 6341d9eae45da4b252fcf2512b5ec85ea9b9cc00
     subdir: android
     gradle:
       - assembleRelease
     output: app/build/outputs/apk/release/app-release-unsigned.apk
 
 AutoUpdateMode: Version
-UpdateCheckMode: Tags
+# Ограничение по регулярке отсекает служебный тег ci-latest, который создаёт
+# GitHub Actions для релиза «Последняя сборка». Релизные теги вида v1.4 оканчиваются цифрой.
+UpdateCheckMode: Tags .*[0-9]$
 CurrentVersion: '1.4'
 CurrentVersionCode: 7
+
+MaintainerNotes: |-
+  Сборка: Gradle-проект в android/, веб-файлы попадают в assets задачей
+  copyWebAssets на этапе preBuild, отдельных prebuilt-бинарников в репозитории нет.
+  Разрешения INTERNET в манифесте нет, приложение полностью офлайн, поэтому
+  NonFreeNet и Tracking не применимы. Ассеты (шрифты OFL, аудио и портреты
+  без правообладателя) описаны в ASSETS.md.
+  Служебный тег ci-latest и релиз «Последняя сборка» создаются CI и не являются
+  релизом для F-Droid.
+

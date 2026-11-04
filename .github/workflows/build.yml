@@ -14,6 +14,11 @@ concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  ANDROID_PLATFORM: android-36
+  ANDROID_BUILD_TOOLS: 36.0.0
+  GRADLE_VERSION: "8.11.1"
+
 jobs:
   android:
     name: Android APK
@@ -29,16 +34,38 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      # SDK уже есть на раннере; используем его напрямую, без сторонних экшенов.
+      - name: Point to the preinstalled Android SDK
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-/usr/local/lib/android/sdk}}"
+          if [ ! -d "$SDK" ]; then
+            echo "::error::Android SDK не найден в $SDK"
+            exit 1
+          fi
+          if [ -d "$SDK/cmdline-tools/latest/bin" ]; then
+            CT="$SDK/cmdline-tools/latest/bin"
+          else
+            CT="$(dirname "$(find "$SDK/cmdline-tools" -name sdkmanager -type f | head -n1)")"
+          fi
+          echo "ANDROID_SDK_ROOT=$SDK" >> "$GITHUB_ENV"
+          echo "ANDROID_HOME=$SDK" >> "$GITHUB_ENV"
+          echo "$CT" >> "$GITHUB_PATH"
+          echo "$SDK/platform-tools" >> "$GITHUB_PATH"
+          echo "SDK: $SDK"
+          echo "cmdline-tools: $CT"
 
       - name: Install SDK platform and build-tools
-        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+        run: |
+          set -euo pipefail
+          yes | sdkmanager --licenses > /dev/null 2>&1 || true
+          sdkmanager --install "platforms;$ANDROID_PLATFORM" "build-tools;$ANDROID_BUILD_TOOLS" "platform-tools"
+          sdkmanager --list_installed | sed -n '1,40p'
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: "8.11.1"
+          gradle-version: ${{ env.GRADLE_VERSION }}
 
       - name: Build debug and release APK
         working-directory: android
@@ -77,8 +104,42 @@ jobs:
           fi
           echo "OK: внешних шрифтов и сетевых подключений в веб-части нет"
 
-  release:
-    name: Attach APK to release
+  # Каждая успешная сборка из ветки попадает в релиз «Последняя сборка».
+  # Тег ci-latest служебный: F-Droid его игнорирует (UpdateCheckMode: Tags .*[0-9]$).
+  release-latest:
+    name: Publish latest build to Releases
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/'))
+    needs: [android, web-check]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download APK artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: pocket-psychologist-apk
+          path: artifacts
+
+      - name: Publish rolling release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ci-latest
+          name: Последняя сборка
+          prerelease: true
+          body: |
+            Автоматическая сборка из ветки `${{ github.ref_name }}`.
+
+            - Коммит: `${{ github.sha }}`
+            - Запуск: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            **Что скачивать:** `app-debug.apk` — подписан debug-ключом, ставится
+            на устройство сразу. `app-release-unsigned.apk` — неподписанный
+            release, его нужно подписать своим ключом перед установкой.
+          files: artifacts/**/*.apk
+          fail_on_unmatched_files: true
+
+  release-tag:
+    name: Attach APK to version release
     if: startsWith(github.ref, 'refs/tags/v')
     needs: [android, web-check]
     runs-on: ubuntu-latest
@@ -89,9 +150,10 @@ jobs:
           name: pocket-psychologist-apk
           path: artifacts
 
-      - name: Publish GitHub release
+      - name: Publish version release
         uses: softprops/action-gh-release@v2
         with:
           files: artifacts/**/*.apk
           generate_release_notes: true
+          make_latest: true
           fail_on_unmatched_files: true
