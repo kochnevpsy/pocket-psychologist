@@ -1,5 +1,7 @@
 # Карманный психолог
 
+[![Build](https://github.com/kochnevpsy/pocket-psychologist/actions/workflows/build.yml/badge.svg)](https://github.com/kochnevpsy/pocket-psychologist/actions/workflows/build.yml)
+
 Открытое приложение для саморегуляции и самопомощи: тест Сонди, дыхательные
 практики, дневник, трекер состояния и работа с мыслями. Работает полностью
 офлайн, без рекламы, аналитики и регистрации.
@@ -57,6 +59,21 @@ gradle assembleRelease
 требования — в [android/README.md](android/README.md).
 
 Ключи подписи, пароли и готовые сборки в репозиторий намеренно не включены.
+
+## Сборка на GitHub Actions
+
+Workflow [.github/workflows/build.yml](.github/workflows/build.yml) запускается на
+каждый пуш в любую ветку, на pull request и вручную:
+
+- **Android APK** — собирает `assembleDebug` и `assembleRelease`, APK лежат в
+  артефактах запуска (`pocket-psychologist-apk`). Release-APK неподписанный:
+  подпись выполняется вашим ключом локально или при публикации.
+- **Offline check** — падает, если в веб-части снова появятся внешние шрифты
+  или сетевые загрузки.
+- **Attach APK to release** — при пуше тега `v*` прикладывает APK к GitHub
+  Release и генерирует список изменений.
+
+Скачать свежие сборки: вкладка **Actions** → нужный запуск → блок **Artifacts**.
 
 ## Публикация в F-Droid
 
