@@ -1,0 +1,29 @@
+# Build output
+PocketPsychologist*.apk
+PocketPsychologist*.aab
+*.apk
+*.aab
+android_build/
+build/
+out/
+
+# Signing material — never commit
+*.p12
+*.jks
+*.keystore
+*.pem
+*.key
+.env
+.env.*
+
+# Local/IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+node_modules/
+__pycache__/
+*.pyc
+
+# Local test artifacts
+.verify/
